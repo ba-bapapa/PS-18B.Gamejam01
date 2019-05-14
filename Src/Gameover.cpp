@@ -16,12 +16,10 @@ bool GameoverScene::Initialize() {
 
 	progSimple.Reset(Shader::BuildFromFile("Res/Simple.vert", "Res/Simple.frag"));
 
-	texBackground.Reset(Texture::LoadImage2D("Res/Dark.tga"));
+	texBackground.Reset(Texture::LoadImage2D("Res/Dark.tga"));						//îwåiÅiçïÅj
 	texGameOver.Reset(Texture::LoadImage2D("Res/GAMEOVER.tga"));
-
 	texButtonContinue.Reset(Texture::LoadImage2D("Res/Continue.tga"));
 	texLightButtonContinue.Reset(Texture::LoadImage2D("Res/LightContinue.tga"));
-
 	texLightButtonTitle.Reset(Texture::LoadImage2D("Res/LightTitle.tga"));
 	texButtonTitle.Reset(Texture::LoadImage2D("Res/Title.tga"));
 
