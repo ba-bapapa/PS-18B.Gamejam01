@@ -1027,6 +1027,7 @@ void MainGameScene::Render(){
 			//³Ë‰e‚Å•`‰æ‚·‚é‚æ‚¤‚És—ñ‚ğİ’è.
 			const glm::mat4x4 matProj = glm::ortho(
 				-400.0f, 400.0f, -300.0f, 300.0f, 1.0f, 500.0f);
+			
 			const glm::mat4x4 matView = glm::lookAt(
 				glm::vec3(0, 0, 100), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 			progSimple.SetViewProjectionMatrix(matProj * matView);
