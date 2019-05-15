@@ -558,7 +558,7 @@ void MainGameScene::Update() {
 	}
 
 	//視点の位置を更新.
-	const glm::vec3 viewOffset(0, 20, 10);
+	const glm::vec3 viewOffset(0, 5, 20);
 	viewPos = player.position + viewOffset;
 
 	//プレイヤーの状態を更新.
