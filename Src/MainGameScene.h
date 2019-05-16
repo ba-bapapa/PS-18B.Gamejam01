@@ -163,6 +163,13 @@ private:
 	Texture::Image2D texBoss;
 	Texture::Image2D texmugen;
 
+	//仮メニュー
+	Texture::Image2D texLightButtonStart;
+	Texture::Image2D texButtonStart;
+	Texture::Image2D texLightButtonEnd;
+	Texture::Image2D texButtonEnd;
+	///
+
 	Shader::Program progSimple;
 	Shader::Program progLighting;
 	Shader::LightList lights;
@@ -194,7 +201,7 @@ private:
 		play,		//通常プレイ中.
 		stageClear,	//ステージクリア.
 		gameOver,	//ゲームオーバー.
-		stopScene,	//一時停止画面.
+		MenuScene,	//メニュー画面
 		ranking,	//ランキングシーン
 	};
 	State state = State::play;
@@ -223,6 +230,12 @@ private:
 	int item3Left = 1;				//未登場の敵の数.敵を出現させるたびに減少していく.
 	float item3PoppingTimer = 60.0f;		//アイテム出現タイマー.
 	float item3PoppingInterval =60.0f;	//アイテムの出現間隔.
+
+	//仮メニュー
+	bool ButtonStart_f;
+	bool ButtonEnd_f;
+	float BlinkTimer;		//点滅間隔
+	///
 };
 
 #endif // ! MAINGAMESCENE_H_INCLUDED

@@ -227,6 +227,13 @@ bool MainGameScene::Initialize() {
 	texBoss.Reset(Texture::LoadImage2D("Res/Boss.tga"));
 	texmugen.Reset(Texture::LoadImage2D("Res/MUGEN.tga"));
 
+	//仮メニュー
+	texLightButtonEnd.Reset(Texture::LoadImage2D("Res/EndLight.tga"));
+	texButtonEnd.Reset(Texture::LoadImage2D("Res/End.tga"));
+	texLightButtonStart.Reset(Texture::LoadImage2D("Res/LightStart.tga"));
+	texButtonStart.Reset(Texture::LoadImage2D("Res/Start.tga"));
+	///
+
 	//ライトの設定.
 	lights.ambient.color = glm::vec3(0.05f, 0.1f, 0.1f);			//環境光の色.
 	lights.directional.direction = glm::normalize(glm::vec3(1, -1, -1));	//指向性ライトの方向.
@@ -308,6 +315,13 @@ bool MainGameScene::Initialize() {
 			Bill->colLocal = { glm::vec3(-0.5f,0.0f,-0.5f),glm::vec3(1.0f,1.7f,1.0f) };
 		}
 	}
+
+	//仮メニュー
+	BlinkTimer = 0.5f;
+	ButtonStart_f = true;
+	ButtonEnd_f = false;
+	///
+
 	return true;
 }
 
@@ -433,7 +447,7 @@ void MainGameScene::ProcessInput() {
 		if (window.IsKeyPressed(GLFW_KEY_E)) {						//一時停止
 			if (player.health >= 0 && enemyKilled <= enemyTotal) {
 				player.velocity.x = player.velocity.z = 0;
-				state = State::stopScene;
+				state = State::MenuScene;
 			}
 		}
 	}
@@ -488,7 +502,7 @@ void MainGameScene::ProcessInput() {
 		}
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_0)) {
+	else if (state == State::MenuScene && window.IsKeyPressed(GLFW_KEY_0)) {
 		Mg_f = false;
 		Sg_f = false;
 		Be_f = false;
@@ -499,36 +513,55 @@ void MainGameScene::ProcessInput() {
 		}
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_1)) {
+	else if (state == State::MenuScene && window.IsKeyPressed(GLFW_KEY_1)) {
 		Mg_f = true;
 		Sg_f = false;
 		Be_f = false;
 		MaxBullet = 30;
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_2)) {
+	else if (state == State::MenuScene && window.IsKeyPressed(GLFW_KEY_2)) {
 		Mg_f = false;
 		Sg_f = true;
 		Be_f = false;
 		MaxBullet = 25;
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_3)) {
+	else if (state == State::MenuScene && window.IsKeyPressed(GLFW_KEY_3)) {
 		Mg_f = false;
 		Sg_f = false;
 		Be_f = true;
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_4)) {
+	else if (state == State::MenuScene && window.IsKeyPressed(GLFW_KEY_4)) {
 		Mg_f = false;
 		Sg_f = false;
 		Be_f = false;
 		HP_f = true;
 	}
 
-	else if (state == State::stopScene && window.IsKeyPressed(GLFW_KEY_ENTER)) {
-		state = State::play;
+	else if (state == State::MenuScene) {
+	//仮メニュー
+		//はじまる
+		if (window.IsKeyPressed(GLFW_KEY_W) || window.IsKeyPressed(GLFW_KEY_UP)) {
+			ButtonEnd_f = false;
+			ButtonStart_f = true;
+		}
+		//おわる
+		if (window.IsKeyPressed(GLFW_KEY_S) || window.IsKeyPressed(GLFW_KEY_DOWN)) {
+			ButtonEnd_f = true;
+			ButtonStart_f = false;
+		}
+			//はじまるボタンが選ばれているときにENTERを押すとゲームスタート
+			if (ButtonStart_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
+				state = State::play;
+			}
+			//おわるボタンが選ばれているときにENTERを押すとゲーム終了
+			else if (ButtonEnd_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
+				NextScene("TitleScene");
+			}
 	}
+
 	else if(state == State::gameOver){
 		player.velocity.x = player.velocity.z = 0;
 		if (window.IsKeyPressed(GLFW_KEY_ENTER)) {
@@ -679,12 +712,12 @@ void MainGameScene::Update() {
 	}
 
 	//ゾンビの状態を更新.
-	if (state != State::stopScene) {
+	if (state != State::MenuScene) {
 		UpdateActorList(enemies, deltaTime);
 	}
 
 	//ゾンビの発生.
-	if (enemyLeft > 0 && state != State::stopScene || bossenemyLeft > 0 && state != State::stopScene) {
+	if (enemyLeft > 0 && state != State::MenuScene || bossenemyLeft > 0 && state != State::MenuScene) {
 
 		//ボス戦
 		if (boss_f == true) {
@@ -1132,11 +1165,70 @@ void MainGameScene::Render(){
 				progSimple.Draw(planeMeshId,
 					glm::vec3(0), glm::vec3(0), glm::vec3(300, 60, 1));
 			}
-			else if (state == State::stopScene){
+
+//メニュー画面
+			else if (state == State::MenuScene){
 				progSimple.BindTexture(0,texpause.Get());
 				progSimple.Draw(planeMeshId,
-					glm::vec3(0), glm::vec3(0), glm::vec3(300, 60, 1));
+				glm::vec3(-300, 120, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+				/*
+				*はじめるボタン青
+				*/
+				if (ButtonStart_f) {
+					//点滅
+					if (BlinkTimer > 0.0f) {
+						progSimple.BindTexture(0, texLightButtonStart.Get());
+						progSimple.Draw(planeMeshId,
+							glm::vec3(-300, 70, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+						BlinkTimer -= window.DeltaTime();
+					}
+					else {
+						progSimple.BindTexture(0, texButtonStart.Get());
+						progSimple.Draw(planeMeshId,
+							glm::vec3(-300, 70, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+						BlinkTimer -= window.DeltaTime();
+						if (BlinkTimer < -0.5) {
+							BlinkTimer = 0.5;
+						}
+					}
+				}
+				//はじめるボタン黒
+				else {
+					progSimple.BindTexture(0, texButtonStart.Get());
+					progSimple.Draw(planeMeshId,
+						glm::vec3(-300, 70, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+				}
+
+
+				/*
+				*おわるボタン青
+				*/
+				if (ButtonEnd_f) {
+					//点滅
+					if (BlinkTimer > 0.0f) {
+						progSimple.BindTexture(0, texLightButtonEnd.Get());
+						progSimple.Draw(planeMeshId,
+							glm::vec3(-300, 20, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+						BlinkTimer -= window.DeltaTime();
+					}
+					else {
+						progSimple.BindTexture(0, texButtonEnd.Get());
+						progSimple.Draw(planeMeshId,
+							glm::vec3(-300, 20, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+						BlinkTimer -= window.DeltaTime();
+						if (BlinkTimer < -0.5) {
+							BlinkTimer = 0.5;
+						}
+					}
+				}
+				//おわるボタン黒
+				else {
+					progSimple.BindTexture(0, texButtonEnd.Get());
+					progSimple.Draw(planeMeshId,
+						glm::vec3(-300, 20, 0), glm::vec3(0), glm::vec3(100, 32, 1));
+				}
 			}
+
 			else if (state == State::ranking) {							//ランキング
 				progSimple.BindTexture(0, texSiro.Get());
 				progSimple.Draw(meshList.Get(4),
