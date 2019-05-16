@@ -19,15 +19,15 @@ void PlayerActor::Update(float deltaTime) {
 			rotation.x = glm::radians(-90.0f);
 		}
 	}
-	const float mapSize = 20;
-	for (size_t i = 0; i < 3; ++i) {
-		if (position[i] < -mapSize || position[i] > mapSize) {
-			if (health > 0) {
-				health -= 1;
-			}
-			break;
-		}
-	}
+	//const float mapSize = 20;
+	//for (size_t i = 0; i < 3; ++i) {
+	//	if (position[i] < -mapSize || position[i] > mapSize) {
+	//		if (health > 0) {
+	//			health -= 1;
+	//		}
+	//		break;
+	//	}
+	//}
 	Actor::Update(deltaTime);
 }
 
