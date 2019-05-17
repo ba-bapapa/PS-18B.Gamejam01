@@ -239,4 +239,3 @@ private:
 };
 
 #endif // ! MAINGAMESCENE_H_INCLUDED
-
