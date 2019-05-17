@@ -18,7 +18,7 @@ int main() {
 
 	GLFWEW::Window& window = GLFWEW::Window::Instance();
 
-	if (!window.Init(800, 600, "OpenGLTutorial")) {
+	if (!window.Init(1600, 900, "OpenGLTutorial")) {
 		return 1;
 	}
 
