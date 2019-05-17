@@ -34,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -47,7 +47,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\2018年度　授業\2018年度　制作ゲーム\PS18-B narikawa shota\Lib\Easy\Audio.cpp" />
     <ClCompile Include="Src\Actor.cpp" />
     <ClCompile Include="Src\Gameover.cpp" />
     <ClCompile Include="Src\GLFWEW.cpp" />
@@ -158,6 +159,7 @@
     <None Include="Res\VertexLighting.vert" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\2018年度　授業\2018年度　制作ゲーム\PS18-B narikawa shota\Lib\Easy\Audio.h" />
     <ClInclude Include="Src\Actor.h" />
     <ClInclude Include="Src\Gameover.h" />
     <ClInclude Include="Src\Geometry.h" />

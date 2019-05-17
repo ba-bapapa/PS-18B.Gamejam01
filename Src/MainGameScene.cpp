@@ -1131,19 +1131,24 @@ void MainGameScene::Render(){
 					glm::vec3(0, -50, 0), glm::vec3(0), glm::vec3(100,30, 1));
 			}
 
+			//プレイヤーの画像表示.
+			progSimple.BindTexture(0, texHuman.Get());
+			progSimple.Draw(planeMeshId,
+				glm::vec3(-335, -245, 0), glm::vec3(0), glm::vec3(64, 64, 1));
+
 			//プレイヤーの体力を表示.
 			progSimple.BindTexture(0, texHP.Get());
 			progSimple.Draw(planeMeshId,
-				glm::vec3(-336, -270, 0), glm::vec3(0), glm::vec3(48, 32, 1));
+				glm::vec3(-220, -215, 0), glm::vec3(0), glm::vec3(48, 32, 1));
 			const int maxHealthDigits = 2;	//表示する桁数.
 			int tmpHealth = player.health;
 			for (int i = 0; i < maxHealthDigits; ++i) {
-				const int posX = -300 + 32 * (maxHealthDigits - i);
+				const int posX = -200 + 32 * (maxHealthDigits - i);
 				const int number = tmpHealth % 10;
 				tmpHealth /= 10;
 				progSimple.BindTexture(0, texNumber[number].Get());
 				progSimple.Draw(planeMeshId,
-					glm::vec3(posX, -270, 0), glm::vec3(0), glm::vec3(32, 32, 1));
+					glm::vec3(posX, -215, 0), glm::vec3(0), glm::vec3(32, 32, 1));
 			}
 
 			//ステージ番号を表示.
