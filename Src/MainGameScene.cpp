@@ -555,10 +555,18 @@ void MainGameScene::ProcessInput() {
 			//はじまるボタンが選ばれているときにENTERを押すとゲームスタート
 			if (ButtonStart_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
 				state = State::play;
+				Mg_f = false;
+				Sg_f = true;
+				Be_f = false;
+				MaxBullet = 25;
 			}
 			//おわるボタンが選ばれているときにENTERを押すとゲーム終了
 			else if (ButtonEnd_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
-				NextScene("TitleScene");
+				//NextScene("TitleScene");
+				state = State::play;
+				Mg_f = false;
+				Sg_f = false;
+				Be_f = true;
 			}
 	}
 
