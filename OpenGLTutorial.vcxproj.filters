@@ -42,9 +42,6 @@
     <ClCompile Include="Src\Gameover.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\2018年度　授業\2018年度　制作ゲーム\PS18-B narikawa shota\Lib\Easy\Audio.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Audio3.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -114,9 +111,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Gameover.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\2018年度　授業\2018年度　制作ゲーム\PS18-B narikawa shota\Lib\Easy\Audio.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Src\Audio3.h">
