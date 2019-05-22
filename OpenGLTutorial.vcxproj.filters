@@ -134,4 +134,12 @@
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Object Include="Res\sky1.obj">
+      <Filter>リソース ファイル</Filter>
+    </Object>
+    <Object Include="Res\field.obj">
+      <Filter>リソース ファイル</Filter>
+    </Object>
+  </ItemGroup>
 </Project>

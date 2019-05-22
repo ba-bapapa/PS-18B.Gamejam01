@@ -10,6 +10,7 @@
 #include"MeshList.h"
 #include"Scene.h"
 #include"Actor.h"
+#include"Audio3.h"
 #include<vector>
 #include<random>
 
@@ -173,6 +174,13 @@ private:
 	Shader::Program progSimple;
 	Shader::Program progLighting;
 	Shader::LightList lights;
+
+	Audio::SoundPtr bgm;
+	Audio::SoundPtr attack;
+	Audio::SoundPtr defence;
+	Audio::SoundPtr defense = Audio::Engine::Instance().Prepare("Res/Sound/defense.mp3");
+	Audio::SoundPtr piyopiyo;
+	Audio::EngineRef audio = Audio::Engine::Instance();
 
 	float angleY = 0;
 	glm::vec3 viewPos;

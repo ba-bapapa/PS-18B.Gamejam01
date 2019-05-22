@@ -4,6 +4,8 @@
 #include "TitleScene.h"
 #include<glm/gtc/matrix_transform.hpp>
 #include <stdlib.h>
+#include"Audio3.h"
+
 
 /**
 *初期化.
@@ -29,7 +31,16 @@ bool TitleScene::Initialize() {
 	ButtonStart_f = true;
 	ButtonEnd_f = false;
 
+	if (!TitleAudio.Initialize()) {
+		printf("TitleAudio error");
+	}
+
+	titlebgm = TitleAudio.Prepare("Res/Audio/game_maoudamashii_7_rock50.mp3");
+	titlebgm->Play(Audio::Flag_Loop);
+
 	return true;	
+
+	
 }
 
 /**
@@ -42,23 +53,32 @@ void TitleScene::ProcessInput() {
 	
 	//はじまる
 	if (window.IsKeyPressed(GLFW_KEY_W) || window.IsKeyPressed(GLFW_KEY_UP)) {
+		/*Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();*/
 		ButtonEnd_f = false;
 		ButtonStart_f = true;
+		
 	}
 	//おわる
 	if (window.IsKeyPressed(GLFW_KEY_S) || window.IsKeyPressed(GLFW_KEY_DOWN)) {
+		/*Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();*/
 		ButtonEnd_f = true;
 		ButtonStart_f = false;
+		
 	}
 	if (!isFinish && timer <= 0.0f) {
 		//はじまるボタンが選ばれているときにENTERを押すとゲームスタート
 		if (ButtonStart_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
+			Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();
 			NextScene("MainGameScene");
 			isFinish = true;
+			
+			
 		}
 		//おわるボタンが選ばれているときにENTERを押すとゲーム終了
 		else if (ButtonEnd_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
+			Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();
 			exit(0);
+			
 		}
 	}
 }
@@ -69,6 +89,7 @@ void TitleScene::ProcessInput() {
 void TitleScene::Update() {
 
 	GLFWEW::Window& window = GLFWEW::Window::Instance();
+	TitleAudio.Update();
 
 	if (timer > 0.0f) {
 		timer -= window.DeltaTime();
@@ -171,6 +192,7 @@ void TitleScene::Render() {
 */
 void TitleScene::Finalize() {
 
+	TitleAudio.Destroy();
 }
 
 /**

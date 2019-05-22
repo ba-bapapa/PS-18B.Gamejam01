@@ -10,6 +10,7 @@
 #include"Shader.h"
 #include"MeshList.h"
 #include"Scene.h"
+#include"Audio3.h"
 
 /**
 *タイトル画面.
@@ -38,6 +39,12 @@ private:
 	Texture::Image2D texLightButtonEnd;
 	Texture::Image2D texButtonEnd;
 
+	Audio::EngineRef TitleAudio = Audio::Engine::Instance();
+	Audio::SoundPtr titlebgm;
+	Audio::SoundPtr titleok;
+	Audio::SoundPtr titlemove;
+	Audio::SoundPtr titlecancel;
+
 	Shader::Program progSimple;
 
 	float timer;
@@ -47,6 +54,7 @@ private:
 	bool ButtonEnd_f;	
 
 	float BlinkTimer;		//点滅間隔
+	float btntimer = 0.1f;
 };
 
 #endif // !TITLESCENE_H_INCLUDED

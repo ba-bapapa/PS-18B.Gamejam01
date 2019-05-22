@@ -25,6 +25,7 @@ namespace GLFWEW {
 		void UpDateTimer();
 		double DeltaTime() const;
 
+		bool KeyDown(int key) const;
 		bool IsKeyPressed(int key) const;
 
 	private:

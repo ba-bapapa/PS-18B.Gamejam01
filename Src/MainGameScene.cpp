@@ -322,6 +322,16 @@ bool MainGameScene::Initialize() {
 	ButtonEnd_f = false;
 	///
 
+	//audioの初期化
+	if (!audio.Initialize()) {
+		printf("Audio/error");
+		return false;
+	}
+
+	piyopiyo = audio.Prepare("Res/Audio/Bakuhatsu.mp3");
+	bgm = audio.Prepare("Res/Audio/playScene.mp3");
+	bgm->Play(Audio::Flag_Loop);
+
 	return true;
 }
 
@@ -330,10 +340,14 @@ bool MainGameScene::Initialize() {
 */
 void MainGameScene::ProcessInput() {
 	GLFWEW::Window& window = GLFWEW::Window::Instance();
+
+	
+
 	if (state == State::play) {
 
 		//プレイヤーを移動する.
 		player.velocity = glm::vec3(0);
+
 			if (window.IsKeyPressed(GLFW_KEY_A)) {
 				player.velocity.x = -1;
 			}
@@ -345,6 +359,10 @@ void MainGameScene::ProcessInput() {
 			}
 			else if (window.IsKeyPressed(GLFW_KEY_S)) {
 				player.velocity.z = 1;
+			}
+
+			if (window.IsKeyPressed(GLFW_KEY_RIGHT)){
+				player.rotation.y -= glm::radians(1.0f);
 			}
 
 		if (player.velocity.x || player.velocity.z) {
@@ -559,6 +577,8 @@ void MainGameScene::ProcessInput() {
 				Sg_f = true;
 				Be_f = false;
 				MaxBullet = 25;
+				Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();
+				
 			}
 			//おわるボタンが選ばれているときにENTERを押すとゲーム終了
 			else if (ButtonEnd_f && window.IsKeyPressed(GLFW_KEY_ENTER)) {
@@ -567,6 +587,7 @@ void MainGameScene::ProcessInput() {
 				Mg_f = false;
 				Sg_f = false;
 				Be_f = true;
+				Audio::Engine::Instance().Prepare("Res/Audio/decision2.mp3")->Play();
 			}
 	}
 
@@ -590,6 +611,7 @@ void MainGameScene::ProcessInput() {
 */
 void MainGameScene::Update() {
 
+	audio.Update();
 	const float deltaTime = (float)GLFWEW::Window::Instance().DeltaTime();
 
 	//モデルのY軸回転角を更新.
@@ -1311,4 +1333,6 @@ void MainGameScene::Finalize() {
 	ClearActorList(ItemA);
 	ClearActorList(Item2A);
 	ClearActorList(Item3A);
+
+	audio.Destroy();
 }
